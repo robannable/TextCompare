@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Enhanced Text Editor</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="header">
+        <div class="file-controls">
+            <input type="text" id="filename" placeholder="filename.md">
+            <button id="save-btn">Save</button>
+            <button id="load-btn">Load</button>
+            <select id="file-list">
+                <option value="">Select a file</option>
+            </select>
+            <div class="option-controls">
+                <label>
+                    <input type="checkbox" id="sync-scroll"> Sync Scrolling
+                </label>
+                <label>
+                    <input type="checkbox" id="markdown-preview"> Markdown Preview
+                </label>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="column">
+            <div class="column-header">
+                <h2>New Text</h2>
+                <div class="column-stats">
+                    <span id="newWordCount">0 words</span>
+                    <span id="newLastUpdated"></span>
+                </div>
+            </div>
+            <div class="editor-container">
+                <textarea id="newText" placeholder="Enter new text here..."></textarea>
+                <div class="markdown-preview" id="newPreview"></div>
+            </div>
+            <div class="resize-handle"></div>
+        </div>
+        <div class="column">
+            <div class="column-header">
+                <h2>Original Text</h2>
+                <div class="column-stats">
+                    <span id="originalWordCount">0 words</span>
+                    <span id="originalLastUpdated"></span>
+                </div>
+            </div>
+            <div class="editor-container">
+                <textarea id="originalText" placeholder="Enter original text here..."></textarea>
+                <div class="markdown-preview" id="originalPreview"></div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="terminal-container">
+        <div class="terminal-header">
+            <span>AI Assistant Terminal</span>
+            <div class="terminal-controls">
+                <select id="model-list">
+                    <option value="">Loading models...</option>
+                </select>
+                <button id="terminal-clear">Clear</button>
+                <button id="terminal-toggle">▲</button>
+            </div>
+        </div>
+        <div class="terminal-content" id="terminal-content">
+            <div class="terminal-output" id="terminal-output">
+                <p>Welcome to the AI Assistant Terminal. Connect to Ollama to get started.</p>
+                <p>Type /help for available commands.</p>
+            </div>
+            <div class="terminal-input-container">
+                <span class="prompt">></span>
+                <input type="text" id="terminal-input" placeholder="Type a command or question...">
+            </div>
+        </div>
+        <div class="terminal-resize-handle"></div>
+    </div>
+
+    <div id="status-message"></div>
+    
+    <script src="/static/script.js"></script>
+</body>
+</html>
