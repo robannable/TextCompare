@@ -12,7 +12,7 @@ os.makedirs('data', exist_ok=True)
 
 # Ollama configuration
 OLLAMA_BASE_URL = "http://localhost:11434/api"
-DEFAULT_MODEL = "llama3.1"  # Change to your preferred model
+DEFAULT_MODEL = "Llama3.1:latest"  # Updated to match exact model name
 
 @app.route('/')
 def index():
@@ -111,14 +111,15 @@ def ollama_generate():
         # Format the prompt
         prompt = f"{instruction}\n\n{text}"
         
-        # Call Ollama API
+        # Call Ollama API with increased timeout
         response = requests.post(
             f"{OLLAMA_BASE_URL}/generate",
             json={
                 "model": model,
                 "prompt": prompt,
                 "stream": False
-            }
+            },
+            timeout=120  # Increased timeout to 2 minutes
         )
         
         if response.status_code == 200:
@@ -128,10 +129,26 @@ def ollama_generate():
                 "response": result.get("response", "")
             })
         else:
+            error_msg = f"Ollama API error: {response.status_code}"
+            try:
+                error_detail = response.json()
+                error_msg += f" - {error_detail.get('error', '')}"
+            except:
+                pass
             return jsonify({
                 "success": False,
-                "message": f"Ollama API error: {response.status_code}"
+                "message": error_msg
             })
+    except requests.exceptions.Timeout:
+        return jsonify({
+            "success": False,
+            "message": "Request to Ollama timed out after 2 minutes. Please try again with a shorter prompt or different model."
+        })
+    except requests.exceptions.ConnectionError:
+        return jsonify({
+            "success": False,
+            "message": "Could not connect to Ollama. Make sure it's running on localhost:11434"
+        })
     except Exception as e:
         return jsonify({
             "success": False,
@@ -141,14 +158,33 @@ def ollama_generate():
 @app.route('/list_models')
 def list_models():
     try:
-        response = requests.get(f"{OLLAMA_BASE_URL}/tags")
+        response = requests.get(f"{OLLAMA_BASE_URL}/tags", timeout=5)
         if response.status_code == 200:
             models = [model['name'] for model in response.json()['models']]
             return jsonify({"success": True, "models": models})
         else:
-            return jsonify({"success": False, "message": "Could not retrieve models"})
+            error_msg = f"Could not retrieve models: {response.status_code}"
+            try:
+                error_detail = response.json()
+                error_msg += f" - {error_detail.get('error', '')}"
+            except:
+                pass
+            return jsonify({"success": False, "message": error_msg})
+    except requests.exceptions.Timeout:
+        return jsonify({
+            "success": False,
+            "message": "Request to Ollama timed out. Please try again."
+        })
+    except requests.exceptions.ConnectionError:
+        return jsonify({
+            "success": False,
+            "message": "Could not connect to Ollama. Make sure it's running on localhost:11434"
+        })
     except Exception as e:
-        return jsonify({"success": False, "message": str(e)})
+        return jsonify({
+            "success": False,
+            "message": str(e)
+        })
 
 if __name__ == '__main__':
     # Create the templates directory if it doesn't exist
