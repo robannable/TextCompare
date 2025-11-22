@@ -35,4 +35,5 @@ ENV/
 # Application specific
 data/
 *.md
-!README.md 
+!README.md
+.env 
