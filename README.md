@@ -15,16 +15,17 @@ A powerful web-based text editor for comparing and rewriting text, featuring sid
 ### 🤖 AI Integration (Dual Provider Support)
 
 #### Anthropic Claude (Cloud-based)
-- **Latest Claude Models:**
-  - `claude-3-5-sonnet-20241022` (recommended)
-  - `claude-3-5-haiku-20241022`
-  - `claude-3-opus-20240229`
-  - `claude-3-sonnet-20240229`
-  - `claude-3-haiku-20240307`
+- **Latest Claude 4.x Models (2025):**
+  - `claude-sonnet-4-5-20250929` (recommended - 1M context window)
+  - `claude-opus-4-1-20250805` (most powerful for agentic tasks)
+  - `claude-sonnet-4-20250514` (Claude Sonnet 4)
+  - `claude-3-7-sonnet-20250219` (hybrid AI reasoning model)
+  - `claude-3-5-haiku-20241022` (fast and efficient)
+  - `claude-3-haiku-20240307` (legacy fast model)
 - **Streaming support** - See responses in real-time
 - **Token usage tracking** - Monitor input/output tokens
 - **Advanced temperature controls**
-- **Extended context windows** (up to 200K tokens)
+- **Extended context windows** (up to 1M tokens with beta header)
 
 #### Ollama (Local)
 - **Local LLM execution** - Run models on your own hardware
@@ -232,10 +233,10 @@ TextCompare/
 ### Adding New Models
 
 #### For Anthropic
-Edit `app.py`, line ~404:
+Edit `app.py`, line ~405:
 ```python
 models = [
-    "claude-3-5-sonnet-20241022",
+    "claude-sonnet-4-5-20250929",
     "your-new-model-id",
     # ... other models
 ]

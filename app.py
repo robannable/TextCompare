@@ -21,7 +21,7 @@ DEFAULT_OLLAMA_MODEL = "llama3.1:latest"
 
 # Anthropic configuration
 ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")
-DEFAULT_ANTHROPIC_MODEL = "claude-3-5-sonnet-20241022"
+DEFAULT_ANTHROPIC_MODEL = "claude-sonnet-4-5-20250929"
 
 # Initialize Anthropic client if API key is available
 anthropic_client = None
@@ -401,12 +401,11 @@ def list_anthropic_models():
         })
 
     # Anthropic doesn't have a models list API, so we return the known models
+    # Updated January 2025 - Claude 4.x family
     models = [
-        "claude-3-5-sonnet-20241022",
-        "claude-3-5-haiku-20241022",
-        "claude-3-opus-20240229",
-        "claude-3-sonnet-20240229",
-        "claude-3-haiku-20240307"
+        "claude-sonnet-4-5-20250929",  # Latest Sonnet (1M context with beta header)
+        "claude-opus-4-1-20250805",     # Most powerful model for agentic tasks
+        "claude-sonnet-4-20250514"      # Claude Sonnet 4
     ]
 
     # Update cache

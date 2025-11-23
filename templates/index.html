@@ -23,7 +23,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="container">
         <div class="column">
             <div class="column-header">
@@ -53,21 +53,28 @@
             </div>
         </div>
     </div>
-    
+
     <div class="terminal-container">
         <div class="terminal-header">
             <span>AI Assistant Terminal</span>
             <div class="terminal-controls">
+                <select id="provider-select">
+                    <option value="anthropic">Anthropic Claude</option>
+                    <option value="ollama">Ollama (Local)</option>
+                </select>
                 <select id="model-list">
                     <option value="">Loading models...</option>
                 </select>
+                <label class="stream-toggle">
+                    <input type="checkbox" id="stream-toggle" checked> Stream
+                </label>
                 <button id="terminal-clear">Clear</button>
                 <button id="terminal-toggle">▲</button>
             </div>
         </div>
         <div class="terminal-content" id="terminal-content">
             <div class="terminal-output" id="terminal-output">
-                <p>Welcome to the AI Assistant Terminal. Connect to Ollama to get started.</p>
+                <p>Welcome to the AI Assistant Terminal.</p>
                 <p>Type /help for available commands.</p>
             </div>
             <div class="terminal-input-container">
@@ -79,7 +86,7 @@
     </div>
 
     <div id="status-message"></div>
-    
+
     <script src="/static/script.js"></script>
 </body>
 </html>

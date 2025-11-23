@@ -29,10 +29,10 @@ body {
 .container {
     display: flex;
     flex: 1;
-    height: calc(100vh - 180px); /* Adjust for terminal */
-    min-height: 0;  /* Important for flex child scrolling */
-    overflow: hidden;  /* Contain the scrolling */
-    position: relative;  /* For resize handle positioning */
+    height: calc(100vh - 180px);
+    min-height: 0;
+    overflow: hidden;
+    position: relative;
 }
 
 .column {
@@ -42,7 +42,7 @@ body {
     display: flex;
     flex-direction: column;
     position: relative;
-    min-width: 200px;  /* Minimum width for columns */
+    min-width: 200px;
 }
 
 .resize-handle {
@@ -99,15 +99,15 @@ h2 {
     flex-direction: column;
     min-height: 0;
     overflow: hidden;
-    padding: 5px;  /* Added padding */
-    background: #fff;  /* Added background */
-    border-radius: 4px;  /* Added rounded corners */
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);  /* Added subtle shadow */
+    padding: 5px;
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
 .markdown-preview {
     display: none;
-    padding: 15px;  /* Increased from 10px */
+    padding: 15px;
     background: white;
     border: 1px solid #ddd;
     overflow-y: auto;
@@ -115,7 +115,7 @@ h2 {
     height: 100%;
     box-sizing: border-box;
     min-height: 0;
-    border-radius: 3px;  /* Added rounded corners */
+    border-radius: 3px;
 }
 
 .markdown-preview.active {
@@ -128,17 +128,13 @@ textarea {
     border: 1px solid #ddd;
     resize: none;
     flex: 1;
-    padding: 15px;  /* Increased from 10px */
+    padding: 15px;
     font-family: 'Courier New', Courier, monospace;
     font-size: 14px;
     line-height: 1.5;
     box-sizing: border-box;
     min-height: 0;
-    border-radius: 3px;  /* Added rounded corners */
-}
-
-.spelling-error {
-    text-decoration: wavy underline red;
+    border-radius: 3px;
 }
 
 button {
@@ -147,15 +143,22 @@ button {
     color: white;
     border: none;
     cursor: pointer;
+    border-radius: 3px;
 }
 
 button:hover {
     background-color: #45a049;
 }
 
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
 input, select {
     padding: 5px;
     border: 1px solid #ddd;
+    border-radius: 3px;
 }
 
 #status-message {
@@ -173,8 +176,8 @@ input, select {
     display: flex;
     flex-direction: column;
     transition: height 0.3s ease;
-    position: relative;  /* For resize handle positioning */
-    min-height: 100px;  /* Minimum height for terminal */
+    position: relative;
+    min-height: 100px;
 }
 
 .terminal-resize-handle {
@@ -212,6 +215,7 @@ input, select {
 .terminal-controls {
     display: flex;
     gap: 5px;
+    align-items: center;
 }
 
 .terminal-controls button {
@@ -222,6 +226,21 @@ input, select {
 
 .terminal-controls button:hover {
     background-color: #555;
+}
+
+.terminal-controls select {
+    background-color: #444;
+    color: #f0f0f0;
+    border: 1px solid #555;
+    font-size: 12px;
+}
+
+.stream-toggle {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: #f0f0f0;
+    font-size: 12px;
 }
 
 .terminal-content {
@@ -271,6 +290,10 @@ input, select {
     outline: none;
 }
 
+#terminal-input:disabled {
+    opacity: 0.5;
+}
+
 .output-user {
     color: #64B5F6;
 }
@@ -283,44 +306,22 @@ input, select {
     color: #EF5350;
 }
 
-/* Spell check highlighting */
-.spelling-highlight {
-    position: relative;
-    text-decoration: wavy underline red;
+.output-success {
+    color: #4CAF50;
 }
 
-.spelling-highlight:hover::after {
-    content: attr(data-suggestion);
-    position: absolute;
-    left: 0;
-    bottom: 20px;
-    background: #333;
-    color: white;
-    padding: 3px 6px;
-    border-radius: 3px;
-    font-size: 12px;
-    white-space: nowrap;
-    z-index: 10;
+.output-info {
+    color: #81C784;
 }
 
-.editor-container {
-    position: relative;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
+.loading-indicator {
+    color: #FFA726;
+    animation: pulse 1.5s ease-in-out infinite;
 }
 
-.markdown-preview {
-    display: none;
-    padding: 10px;
-    background: white;
-    border: 1px solid #ddd;
-    overflow-y: auto;
-    flex: 1;
-}
-
-.markdown-preview.active {
-    display: block;
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
 }
 
 .markdown-preview h1 { font-size: 2em; margin: 0.67em 0; }
@@ -334,3 +335,10 @@ input, select {
 .markdown-preview table { border-collapse: collapse; width: 100%; margin: 1em 0; }
 .markdown-preview th, .markdown-preview td { border: 1px solid #ddd; padding: 8px; }
 .markdown-preview th { background: #f5f5f5; }
+
+/* Token usage display */
+.token-usage {
+    color: #888;
+    font-size: 11px;
+    font-style: italic;
+}
